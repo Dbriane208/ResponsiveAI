@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+
+    <title>ResponseAI</title>
+
+    <style>
+        html, body {
+            width: 100%;
+            height: 100%;
+            margin: 0;
+            padding: 0;
+            background-color: white;
+            overflow: hidden;
+            font-size: xxx-large;
+        }
+
+        input {
+            font-size: xxx-large;
+        }
+
+        ul {
+            margin-top: 0;
+            margin-bottom: 15px;
+        }
+
+        #footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+            background-color: white;
+            font-size: initial;
+        }
+
+        #close {
+            position: absolute;
+            top: 0;
+            right: 10px;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+
+<script src="kotlin-wasm-browser-template.js"></script>
+<div id="footer">
+    <div id="close" onclick="document.getElementById('footer').style.display='none'">ⓧ</div>
+</div>
+</body>
+
+<script type="application/javascript" >
+    const unhandledError = (event, error) => {
+        if (error instanceof WebAssembly.CompileError) {
+            document.getElementById("warning").style.display="initial";
+
+            // Hide a Scary Webpack Overlay which is less informative in this case.
+            const webpackOverlay = document.getElementById("webpack-dev-server-client-overlay");
+            if (webpackOverlay != null) webpackOverlay.style.display="none";
+        }
+    }
+    addEventListener("error", (event) => unhandledError(event, event.error));
+    addEventListener("unhandledrejection", (event) => unhandledError(event, event.reason));
+</script>
+
+</html>
